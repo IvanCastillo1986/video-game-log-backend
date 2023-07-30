@@ -1,16 +1,28 @@
 const express = require("express");
 const snesGames = express.Router();
 const snesGamesArray = require("../models/snesGames");
+const { getAllGames } = require("../queries/snesGames");
 
 
 // Index
-snesGames.get("/", (req, res) => {
-    try {
-        res.status(200).json({ snesGamesArray });
-    } catch(err) {
-        res.status(500).json({ error: err.message });
+snesGames.get("/", async (req, res) => {
+    const allGames = await getAllGames();
+
+    if (allGames[0]) {
+        res.status(200).json(allGames);
+    } else {
+        res.status(500).json({ error: "server error" })
     }
 });
+
+// snesGames.get("/", (req, res) => {
+//     try {
+//         res.status(200).json({ snesGamesArray });
+//     } catch(err) {
+//         res.status(500).json({ error: err.message });
+//     }
+// });
+
 
 // Show  /snesGames/1
 snesGames.get("/:idx", (req, res) => {
@@ -24,7 +36,7 @@ snesGames.get("/:idx", (req, res) => {
             res.status(404).json({ error: `could not find game at index ${idx}` });
         }
     } catch(err) {
-        res.status(500).json({ error: message.err })
+        res.status(500).json({ error: message.err });
     }
 });
 
@@ -54,8 +66,8 @@ snesGames.put("/:idx", (req, res) => {
     const {idx} = req.params;
 
     if (snesGamesArray[idx]) {
-        const newGame = snesGamesArray[idx] = req.body
-        res.status(200).json(newGame)
+        const newGame = snesGamesArray[idx] = req.body;
+        res.status(200).json(newGame);
     } else {
         res.status(404).json({error: 'index not found'});
     }
