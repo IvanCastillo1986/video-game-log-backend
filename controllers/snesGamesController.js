@@ -1,7 +1,8 @@
 const express = require("express");
 const snesGames = express.Router();
 const snesGamesArray = require("../models/snesGames");
-const { getAllGames } = require("../queries/snesGames");
+const { checkTitle, checkNumber } = require("../validations/checkGame")
+const { getAllGames, getGame, createGame } = require("../queries/snesGames");
 
 
 // Index
@@ -25,28 +26,49 @@ snesGames.get("/", async (req, res) => {
 
 
 // Show  /snesGames/1
-snesGames.get("/:idx", (req, res) => {
-    try {
-        const {idx} = req.params;
-        const game = snesGamesArray[idx];
+snesGames.get("/:id", async (req, res) => {
+    const {id} = req.params;
+    const oneGame = await getGame(id);
 
-        if (game) {
-            res.status(200).json({ game });
-        } else {
-            res.status(404).json({ error: `could not find game at index ${idx}` });
-        }
-    } catch(err) {
-        res.status(500).json({ error: message.err });
+    if (oneGame) {
+        res.status(200).json(oneGame);
+    } else {
+        res.status(404).json({error: "could not find game with this id"});
     }
 });
 
-// Create
-snesGames.post("/", (req, res) => {
-    const game = req.body;
-    snesGamesArray.push(game);
+// snesGames.get("/:idx", (req, res) => {
+//     try {
+//         const {idx} = req.params;
+//         const game = snesGamesArray[idx];
 
-    res.json(snesGamesArray[snesGamesArray.length - 1]);
+//         if (game) {
+//             res.status(200).json({ game });
+//         } else {
+//             res.status(404).json({ error: `could not find game at index ${idx}` });
+//         }
+//     } catch(err) {
+//         res.status(500).json({ error: message.err });
+//     }
+// });
+
+// Create
+snesGames.post("/", checkTitle, checkNumber, async (req, res) => {
+    
+    try {
+        const newGame = createGame(req.body);
+        res.status(200).json(newGame);
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
 });
+
+// snesGames.post("/", (req, res) => {
+//     const game = req.body;
+//     snesGamesArray.push(game);
+
+//     res.json(snesGamesArray[snesGamesArray.length - 1]);
+// });
 
 // Delete
 snesGames.delete("/:idx", (req, res) => {
