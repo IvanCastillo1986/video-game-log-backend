@@ -7,7 +7,7 @@ CREATE TABLE snes_games (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     region TEXT NOT NULL,
-    year_released INT NOT NULL,
+    year_released TEXT NOT NULL,
     -- description TEXT,
     developer TEXT,
     publisher TEXT,

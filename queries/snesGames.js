@@ -3,7 +3,7 @@ const db = require("../db/dbConfig.js");
 
 {/*
     db.any(), db.all() returns an array
-    db.one() returns an object
+    db.one() returns one object
 */}
 
 const getAllGames = async () => {
@@ -28,15 +28,38 @@ const getGame = async (id) => {
 
 const createGame = async (game) => {
     try {
-        const newGame = db.one(
+        const newGame = await db.one(
             "INSERT INTO snes_games (title, region, year_released) VALUES ($1, $2, $3) RETURNING *",
             [game.title, game.region, game.year_released]
         );
         return newGame;
     } catch(err) {
-        return `Error in createGame: ${err}`;
+        return err;
+    }
+};
+
+const deleteGame = async (id) => {
+    try {
+        const deletedGame = await db.one(
+            "DELETE FROM snes_games WHERE id = $1 RETURNING *", id
+        );
+        return deletedGame;
+    } catch(err) {
+        return err;
+    }
+};
+
+const updateGame = async (id, game) => {
+    try {
+        const updatedGame = await db.one(
+            "UPDATE snes_games SET title=$1, region=$2, year_released=$3 WHERE id=$4 RETURNING *",
+            [game.title, game.region, game.year_released, id]
+        );
+        return updatedGame;
+    } catch(err) {
+        return err;
     }
 };
 
 
-module.exports = { getAllGames, getGame, createGame };
+module.exports = { getAllGames, getGame, createGame, deleteGame, updateGame };
