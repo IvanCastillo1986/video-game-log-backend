@@ -6,9 +6,10 @@ const db = require("../db/dbConfig.js");
     db.one() returns one object
 */}
 
+
 const getAllGames = async () => {
     try {
-        const allGames = await db.any("SELECT * FROM snes_games");
+        const allGames = await db.any("SELECT * FROM games");
         return allGames;
     } catch(err) {
         return err;
@@ -17,7 +18,7 @@ const getAllGames = async () => {
 
 const getGame = async (id) => {
     try {
-        const game = await db.one("SELECT * FROM snes_games WHERE id=$1", id);
+        const game = await db.one("SELECT * FROM games WHERE id=$1", id);
         // you may also pass in arguments to your SQL query using an objetc with named keys like so:
         // await db.one("SELECT * FROM snes_games WHERE id=[$id]", { id: id });
         return game;
@@ -29,7 +30,7 @@ const getGame = async (id) => {
 const createGame = async (game) => {
     try {
         const newGame = await db.one(
-            "INSERT INTO snes_games (title, region, year_released) VALUES ($1, $2, $3) RETURNING *",
+            "INSERT INTO games (title, region, year_released) VALUES ($1, $2, $3) RETURNING *",
             [game.title, game.region, game.year_released]
         );
         return newGame;
@@ -41,7 +42,7 @@ const createGame = async (game) => {
 const deleteGame = async (id) => {
     try {
         const deletedGame = await db.one(
-            "DELETE FROM snes_games WHERE id = $1 RETURNING *", id
+            "DELETE FROM games WHERE id = $1 RETURNING *", id
         );
         return deletedGame;
     } catch(err) {
@@ -52,7 +53,7 @@ const deleteGame = async (id) => {
 const updateGame = async (id, game) => {
     try {
         const updatedGame = await db.one(
-            "UPDATE snes_games SET title=$1, region=$2, year_released=$3 WHERE id=$4 RETURNING *",
+            "UPDATE games SET title=$1, region=$2, year_released=$3 WHERE id=$4 RETURNING *",
             [game.title, game.region, game.year_released, id]
         );
         return updatedGame;
@@ -61,5 +62,15 @@ const updateGame = async (id, game) => {
     }
 };
 
+const getGamesByPlatform = async (console) => {
+    try {
+        const games = await db.any("SELECT * FROM games WHERE console=$1", console);
+        return games;
+    } catch (err) {
+        return err;
+    }
+};
 
-module.exports = { getAllGames, getGame, createGame, deleteGame, updateGame };
+
+
+module.exports = { getAllGames, getGame, createGame, deleteGame, updateGame, getGamesByPlatform };

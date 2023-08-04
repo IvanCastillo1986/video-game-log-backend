@@ -1,12 +1,11 @@
 const express = require("express");
-const snesGames = express.Router();
-const snesGamesArray = require("../models/snesGames");
+const games = express.Router();
 const { checkTitle, checkNumber } = require("../validations/checkGame")
-const { getAllGames, getGame, createGame, deleteGame, updateGame } = require("../queries/snesGames");
+const { getAllGames, getGame, createGame, deleteGame, updateGame, getGamesByPlatform } = require("../queries/games");
 
 
 // Index
-snesGames.get("/", async (req, res) => {
+games.get("/", async (req, res) => {
     const allGames = await getAllGames();
 
     if (allGames[0]) {
@@ -17,7 +16,7 @@ snesGames.get("/", async (req, res) => {
 });
 
 // Show
-snesGames.get("/:id", async (req, res) => {
+games.get("/:id", async (req, res) => {
     const { id } = req.params;
     const oneGame = await getGame(id);
 
@@ -29,7 +28,7 @@ snesGames.get("/:id", async (req, res) => {
 });
 
 // Create
-snesGames.post("/", checkTitle, checkNumber, async (req, res) => {
+games.post("/", checkTitle, checkNumber, async (req, res) => {
     
     try {
         const newGame = await createGame(req.body);
@@ -40,7 +39,7 @@ snesGames.post("/", checkTitle, checkNumber, async (req, res) => {
 });
 
 // Delete
-snesGames.delete("/:id", async (req, res) => {
+games.delete("/:id", async (req, res) => {
     const { id } = req.params;
     
     try {
@@ -56,7 +55,7 @@ snesGames.delete("/:id", async (req, res) => {
 });
 
 // Update
-snesGames.put("/:id", async (req, res) => {
+games.put("/:id", async (req, res) => {
     const { id } = req.params;
     const game = req.body;
 
@@ -68,6 +67,17 @@ snesGames.put("/:id", async (req, res) => {
     }
 });
 
+// Get by Platform
+games.get("/platforms/:platform", async (req, res) => {
+    const {platform} = req.params;
+    
+    try {
+        const gamesByPlatform = await getGamesByPlatform(platform);
+        res.status(200).json(gamesByPlatform);
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+});
 
-
-module.exports = snesGames;
+ 
+module.exports = games;

@@ -1,11 +1,13 @@
 const express = require('express');
 const app = express();
 const cors = require("cors");
-const snesGamesController = require("./controllers/snesGamesController")
+const pcGamesController = require("./controllers/pcController")
+const gamesController = require("./controllers/gamesController")
 
 app.use(express.json());
 app.use(cors())
-app.use("/snesGames", snesGamesController);
+app.use("/games", gamesController);
+app.use("/pcGames", pcGamesController);
 
 
 app.get('/', (req, res) => {
