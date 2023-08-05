@@ -6,7 +6,7 @@ CREATE DATABASE retro_games_dev;
 
 CREATE TABLE games (
     id SERIAL PRIMARY KEY,
-    console TEXT NOT NULL,
+    platform_id INT,
     title TEXT NOT NULL,
     region TEXT,
     year_released TEXT,
@@ -17,10 +17,15 @@ CREATE TABLE games (
     producer TEXT,
     artist TEXT,
     composer TEXT,
-    genre TEXT,
-    platforms TEXT
+    genre TEXT
 );
 
+
+CREATE TABLE platforms (
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    company TEXT
+);
 
 
 

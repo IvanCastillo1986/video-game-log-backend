@@ -1,8 +1,21 @@
 const express = require("express");
 const games = express.Router();
 const { checkTitle, checkNumber } = require("../validations/checkGame")
-const { getAllGames, getGame, createGame, deleteGame, updateGame, getGamesByPlatform } = require("../queries/games");
+const { getAllGames, getGame, createGame, deleteGame, updateGame, getGamesByPlatformId } = require("../queries/games");
 
+
+// Query by Platform
+games.get("/query?", async (req, res) => {
+
+    const { platformId } = req.query;
+
+    try {
+        const gamesByPlatformId = await getGamesByPlatformId(platformId);
+        res.status(200).json(gamesByPlatformId);
+    } catch (err) {
+        res.status(400).json({ error: err });
+    }
+});
 
 // Index
 games.get("/", async (req, res) => {
@@ -55,7 +68,8 @@ games.delete("/:id", async (req, res) => {
 });
 
 // Update
-games.put("/:id", async (req, res) => {
+games.put("/:id", async (req, res, next) => {
+    
     const { id } = req.params;
     const game = req.body;
 
@@ -67,17 +81,7 @@ games.put("/:id", async (req, res) => {
     }
 });
 
-// Get by Platform
-games.get("/platforms/:platform", async (req, res) => {
-    const {platform} = req.params;
-    
-    try {
-        const gamesByPlatform = await getGamesByPlatform(platform);
-        res.status(200).json(gamesByPlatform);
-    } catch (err) {
-        res.status(400).json({ error: err });
-    }
-});
+
 
  
 module.exports = games;

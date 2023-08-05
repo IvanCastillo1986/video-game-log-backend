@@ -10,6 +10,13 @@ app.use("/games", gamesController);
 app.use("/pcGames", pcGamesController);
 
 
+app.get('/calculator/:operator', (req, res) => {
+    console.log(`This is req.params:`, req.params)
+    console.log(`This is req.query:`, req.query)
+    const sum = Number(req.query.num1) + Number(req.query.num2);
+    res.send("sum is " + sum)
+})
+
 app.get('/', (req, res) => {
     res.send('Welcome to Retro Video Games API!');
 });
