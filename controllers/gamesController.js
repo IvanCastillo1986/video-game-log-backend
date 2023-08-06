@@ -68,7 +68,7 @@ games.delete("/:id", async (req, res) => {
 });
 
 // Update
-games.put("/:id", async (req, res, next) => {
+games.put("/:id", async (req, res) => {
     
     const { id } = req.params;
     const game = req.body;

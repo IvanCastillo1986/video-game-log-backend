@@ -30,8 +30,8 @@ const getGame = async (id) => {
 const createGame = async (game) => {
     try {
         const newGame = await db.one(
-            "INSERT INTO games (title, region, year_released) VALUES ($1, $2, $3) RETURNING *",
-            [game.title, game.region, game.year_released]
+            "INSERT INTO games (title, region, year_released, platform_id) VALUES ($1, $2, $3, $4) RETURNING *",
+            [game.title, game.region, game.year_released, game.platform_id]
         );
         return newGame;
     } catch(err) {
@@ -66,7 +66,9 @@ const getGamesByPlatformId = async (platformId) => {
 
     try {
         const games = await db.any(
-            "SELECT games.id, games.title, games.region, games.year_released FROM games LEFT JOIN platforms ON games.platform_id = platforms.id WHERE games.platform_id=$1", 
+            "SELECT games.id, games.title, games.region, games.year_released, games.platform_id \
+            FROM games LEFT JOIN platforms ON games.platform_id = platforms.id \
+            WHERE games.platform_id=$1",
         platformId);
         return games;
     } catch (err) {
