@@ -8,72 +8,48 @@ const db = require("../db/dbConfig.js");
 
 
 const getAllGames = async () => {
-    try {
-        const allGames = await db.any("SELECT * FROM games");
-        return allGames;
-    } catch(err) {
-        return err;
-    }
+    const allGames = await db.any("SELECT * FROM games");
+    return allGames;
 };
 
 const getGame = async (id) => {
-    try {
-        const game = await db.one("SELECT * FROM games WHERE id=$1", id);
-        // you may also pass in arguments to your SQL query using an objetc with named keys like so:
-        // await db.one("SELECT * FROM snes_games WHERE id=[$id]", { id: id });
-        return game;
-    } catch (err) {
-        return err;
-    }
+    const game = await db.one("SELECT * FROM games WHERE id=$1", id);
+    // you may also pass in arguments to your SQL query using an objetc with named keys like so:
+    // await db.one("SELECT * FROM snes_games WHERE id=[$id]", { id: id });
+    return game;
 };
 
 const createGame = async (game) => {
-    try {
-        const newGame = await db.one(
-            "INSERT INTO games (title, region, year_released, platform_id) VALUES ($1, $2, $3, $4) RETURNING *",
-            [game.title, game.region, game.year_released, game.platform_id]
-        );
-        return newGame;
-    } catch(err) {
-        return err;
-    }
+    const newGame = await db.one(
+        "INSERT INTO games (title, region, year_released, platform_id) VALUES ($1, $2, $3, $4) RETURNING *",
+        [game.title, game.region, game.year_released, game.platform_id]
+    );
+    return newGame;
 };
 
 const deleteGame = async (id) => {
-    try {
-        const deletedGame = await db.one(
-            "DELETE FROM games WHERE id = $1 RETURNING *", id
-        );
-        return deletedGame;
-    } catch(err) {
-        return err;
-    }
+    const deletedGame = await db.one(
+        "DELETE FROM games WHERE id = $1 RETURNING *", id
+    );
+    return deletedGame;
 };
 
 const updateGame = async (id, game) => {
-    try {
-        const updatedGame = await db.one(
-            "UPDATE games SET title=$1, region=$2, year_released=$3 WHERE id=$4 RETURNING *",
-            [game.title, game.region, game.year_released, id]
-        );
-        return updatedGame;
-    } catch(err) {
-        return err;
-    }
+    const updatedGame = await db.one(
+        "UPDATE games SET title=$1, region=$2, year_released=$3 WHERE id=$4 RETURNING *",
+        [game.title, game.region, game.year_released, id]
+    );
+    return updatedGame;
 };
 
 const getGamesByPlatformId = async (platformId) => {
-
-    try {
-        const games = await db.any(
-            "SELECT games.id, games.title, games.region, games.year_released, games.platform_id \
-            FROM games LEFT JOIN platforms ON games.platform_id = platforms.id \
-            WHERE games.platform_id=$1",
-        platformId);
-        return games;
-    } catch (err) {
-        return err;
-    }
+    const games = await db.any(
+        // "SELECT games.id, games.title, games.region, games.year_released, games.platform_id \
+        "SELECT games.* \
+        FROM games LEFT JOIN platforms ON games.platform_id = platforms.id \
+        WHERE games.platform_id=$1",
+    platformId);
+    return games;
 };
 
 
