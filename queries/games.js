@@ -8,6 +8,7 @@ const db = require("../db/dbConfig.js");
 
 
 const getAllGames = async () => {
+    // join this games table with platform table
     const allGames = await db.any("SELECT * FROM games");
     return allGames;
 };

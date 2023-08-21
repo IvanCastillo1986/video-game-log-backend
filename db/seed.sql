@@ -2,34 +2,35 @@
 
 
 INSERT INTO games (
-    platform_id, title, region, year_released
+    platform_id, user_id, title, region, year_released
 ) VALUES 
-(1, 'Princess Tomato in the Salad Kingdom', 'ntsc-u', '1991'),
-(1, 'Mike Tyson''s Punch Out', 'ntsc-u', '1987'),
-(1, 'Castlevania 2: Simon''s Quest', 'ntsc-u', '1987'),
-(1, 'Mega Man 2', 'ntsc-j', '1988'),
-(1, 'Ghosts ''n Goblins', 'pal', '1985'),
-(1, 'Life Force', 'pal', '1986'),
-(3, 'Contra 3: The Alien Wars', 'ntsc-u', '1992'),
-(3, 'Super Mario RPG', 'pal', '1996'),
-(3, 'Zelda: A Link to the Past', 'ntsc-j', '1986'),
-(2, 'Metroid 2: Return of Samus', null, '1991'),
-(2, 'Harvest Moon GB', null, '1997'),
-(2, 'Final Fantasy Adventure', null, '1991'),
-(2, 'Tetris', null, '1984'),
-(2, 'Super Mario Land 2: 6 Golden Coins', null, '1992'),
-(4, 'Phantasy Star', 'ntsc-j', '2000'),
-(4, 'R-Type', 'pal', '2000'),
-(5, 'Sonic the Hedgehog 2', 'ntsc-u', '2000'),
-(5, 'Streets of Rage', 'pal', '2000'),
-(5, 'Shining Force', 'ntsc-j', '2000'),
-(6, 'Dragon Force', 'ntsc-u', '2000'),
-(6, 'Panzer Dragoon Saga', 'pal', '1998'),
-(6, 'Night into Dreams', 'ntsc-u', '1996'),
-(7, 'Diablo 2', null, '2000'),
-(7, 'Half Life', null, '1998'),
-(7, 'Team Fortress 2', null, '2007')
+(1, 'W9cPpzjZ3SOAUgEs4kIPbSSYYJR2', 'Princess Tomato in the Salad Kingdom', 'ntsc-u', '1991'),
+(1, 'W9cPpzjZ3SOAUgEs4kIPbSSYYJR2', 'Mike Tyson''s Punch Out', 'ntsc-u', '1987'),
+(1, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'Castlevania 2: Simon''s Quest', 'ntsc-u', '1987'),
+(1, 'W9cPpzjZ3SOAUgEs4kIPbSSYYJR2', 'Mega Man 2', 'ntsc-j', '1988'),
+(1, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'Ghosts ''n Goblins', 'pal', '1985'),
+(1, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'Life Force', 'pal', '1986'),
+(3, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'Contra 3: The Alien Wars', 'ntsc-u', '1992'),
+(3, 'W9cPpzjZ3SOAUgEs4kIPbSSYYJR2', 'Super Mario RPG', 'pal', '1996'),
+(3, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'Zelda: A Link to the Past', 'ntsc-j', '1986'),
+(2, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'Metroid 2: Return of Samus', null, '1991'),
+(2, 'W9cPpzjZ3SOAUgEs4kIPbSSYYJR2', 'Harvest Moon GB', null, '1997'),
+(2, 'W9cPpzjZ3SOAUgEs4kIPbSSYYJR2', 'Final Fantasy Adventure', null, '1991'),
+(2, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'Tetris', null, '1984'),
+(2, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'Super Mario Land 2: 6 Golden Coins', null, '1992'),
+(4, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'Phantasy Star', 'ntsc-j', '2000'),
+(4, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'R-Type', 'pal', '2000'),
+(5, 'W9cPpzjZ3SOAUgEs4kIPbSSYYJR2', 'Sonic the Hedgehog 2', 'ntsc-u', '2000'),
+(5, 'W9cPpzjZ3SOAUgEs4kIPbSSYYJR2', 'Streets of Rage', 'pal', '2000'),
+(5, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'Shining Force', 'ntsc-j', '2000'),
+(6, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'Dragon Force', 'ntsc-u', '2000'),
+(6, 'W9cPpzjZ3SOAUgEs4kIPbSSYYJR2', 'Panzer Dragoon Saga', 'pal', '1998'),
+(6, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'Night into Dreams', 'ntsc-u', '1996'),
+(7, 'W9cPpzjZ3SOAUgEs4kIPbSSYYJR2', 'Diablo 2', null, '2000'),
+(7, 'W9cPpzjZ3SOAUgEs4kIPbSSYYJR2', 'Half Life', null, '1998'),
+(7, 'lne73W2OkzMg68CbPV7EEEINpvt2', 'Team Fortress 2', null, '2007')
 ;
+
 
 INSERT INTO platforms (
     name, company
@@ -43,6 +44,13 @@ INSERT INTO platforms (
 ('pc', null) --7
 ;
 
+
+INSERT INTO users (
+    email, uuid
+) VALUES 
+('icastillo@live.com', 'W9cPpzjZ3SOAUgEs4kIPbSSYYJR2'),
+('total180training@gmail.com', 'lne73W2OkzMg68CbPV7EEEINpvt2')
+;
 
 
 -- OLD SEEDS

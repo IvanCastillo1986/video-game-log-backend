@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
 const cors = require("cors");
-const pcGamesController = require("./controllers/pcController")
-const gamesController = require("./controllers/gamesController")
+const gamesController = require("./controllers/gamesController");
+const usersController = require("./controllers/usersController");
 
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 app.use("/games", gamesController);
-app.use("/pcGames", pcGamesController);
+app.use("/users", usersController);
 
 
 

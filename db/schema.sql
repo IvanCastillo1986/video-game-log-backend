@@ -7,6 +7,7 @@ CREATE DATABASE retro_games_dev;
 CREATE TABLE games (
     id SERIAL PRIMARY KEY,
     platform_id INT,
+    user_id TEXT,
     title TEXT NOT NULL,
     region TEXT,
     year_released TEXT,
@@ -20,12 +21,25 @@ CREATE TABLE games (
     genre TEXT
 );
 
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email TEXT,
+    uuid TEXT --> games.user_id
+);
+
+-- CREATE TABLE games_of_users (
+--     id SERIAL PRIMARY KEY,
+--     game_id INT,
+--     user_id TEXT
+-- );
 
 CREATE TABLE platforms (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     company TEXT
 );
+
+
 
 
 
