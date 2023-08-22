@@ -3,8 +3,13 @@ const db = require("../db/dbConfig");
 
 
 const getAllUsers = async () => {
-    const allUsers = await db.any("Select * FROM users");
+    const allUsers = await db.any("SELECT * FROM users");
     return allUsers;
+};
+
+const getUser = async (id) => {
+    const oneUser = await db.one("SELECT * FROM users WHERE id = $1", id);
+    return oneUser;
 };
 
 const createUser = async (user) => {
@@ -15,4 +20,10 @@ const createUser = async (user) => {
     return newUser;
 };
 
-module.exports = { getAllUsers, createUser };
+const deleteUser = async (id) => {
+    const deletedGame = await db.one("DELETE FROM users WHERE id = $1 RETURNING *", id);
+    return deletedGame;
+};
+
+
+module.exports = { getAllUsers, getUser, createUser, deleteUser };

@@ -14,7 +14,7 @@ const getAllGames = async () => {
 };
 
 const getGame = async (id) => {
-    const game = await db.one("SELECT * FROM games WHERE id=$1", id);
+    const game = await db.one("SELECT * FROM games WHERE id = $1", id);
     // you may also pass in arguments to your SQL query using an objetc with named keys like so:
     // await db.one("SELECT * FROM snes_games WHERE id=[$id]", { id: id });
     return game;
@@ -52,7 +52,6 @@ const getGamesByPlatformId = async (platformId) => {
     platformId);
     return games;
 };
-
 
 
 module.exports = { getAllGames, getGame, createGame, deleteGame, updateGame, getGamesByPlatformId };

@@ -35,17 +35,18 @@ games.get("/", async (req, res) => {
 // Show
 games.get("/:id", async (req, res) => {
     const { id } = req.params;
-    const oneGame = await getGame(id);
-
+    
+    // This isn't returning 'user not found' error. It's going straight to catch block. How to fix this?
     try {
+        const oneGame = await getGame(id);
 
-        if (oneGame) {
+        if (oneGame.id) {
             res.status(200).json(oneGame);
         } else {
-            res.status(404).json({error: "could not find game with this id"});
+            res.status(404).json({ error: "could not find game with this id" });
         }
     } catch (err) {
-        res.status(500).json({ error: err.mesage });
+        res.status(500).json({ error: err.message });
     }
 });
 
@@ -56,7 +57,7 @@ games.post("/", checkTitle, checkNumber, async (req, res) => {
         const newGame = await createGame(req.body);
         res.status(200).json(newGame);
     } catch (err) {
-        res.status(500).json({ error: err });
+        res.status(500).json({ error: err.message });
     }
 });
 
@@ -72,7 +73,7 @@ games.delete("/:id", async (req, res) => {
             res.status(404).json({error: "Game not found"})
         }
     } catch(err) {
-        res.status(500).json({ error: err });
+        res.status(500).json({ error: err.message });
     }
 });
 
@@ -89,8 +90,6 @@ games.put("/:id", async (req, res) => {
         res.status(500).json({error: err});
     }
 });
-
-
 
 
 module.exports = games;
