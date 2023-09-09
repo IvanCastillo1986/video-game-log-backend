@@ -1,7 +1,8 @@
 const express = require("express");
 const games = express.Router();
 const { checkTitle, checkNumber } = require("../validations/checkGame")
-const { getAllGames, getGame, createGame, deleteGame, updateGame, getGamesByPlatformId } = require("../queries/games");
+const { getAllGames, getGame, createGame, deleteGame, updateGame, 
+    getGamesByPlatformId, getGamesByUserIdForPlatform } = require("../queries/games");
 
 
 
@@ -15,11 +16,17 @@ const { getAllGames, getGame, createGame, deleteGame, updateGame, getGamesByPlat
 
 // Index / Query by Platform
 // ${api}/games?platformId=2
+// ${api}/games?platformId=2&uuid  (with uuid)
 games.get("/", async (req, res) => {
 
     try {
-        const { platformId } = req.query;
-        if (platformId) {
+        const { platformId, uuid } = req.query;
+
+        if (platformId && uuid) {
+            const gamesByUserIdForPlatform = await getGamesByUserIdForPlatform(platformId, uuid);
+            res.status(200).json(gamesByUserIdForPlatform);
+        }
+        else if (platformId) {
             const gamesByPlatformId = await getGamesByPlatformId(platformId);
             res.status(200).json(gamesByPlatformId);
         }

@@ -53,5 +53,15 @@ const getGamesByPlatformId = async (platformId) => {
     return games;
 };
 
+const getGamesByUserIdForPlatform = async (platformId, uuid) => {
+    const games = await db.any(
+        "SELECT games.* FROM games \
+        LEFT JOIN platforms ON games.platform_id = platforms.id \
+        WHERE games.platform_id=$1 AND games.user_id=$2",
+        [platformId, uuid]
+    );
+    return games;
+};
 
-module.exports = { getAllGames, getGame, createGame, deleteGame, updateGame, getGamesByPlatformId };
+
+module.exports = { getAllGames, getGame, createGame, deleteGame, updateGame, getGamesByPlatformId, getGamesByUserIdForPlatform };

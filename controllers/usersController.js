@@ -46,11 +46,12 @@ users.post("/", async (req, res) => {
 });
 
 // Delete
-users.delete("/:id", async (req, res) => {
-    const { id } = req.params;
+users.delete("/:uid", async (req, res) => {
+    // uid is listed in API user table as uuid
+    const uuid = req.params.uid;
     
     try {
-        const deletedUser = await deleteUser(id);
+        const deletedUser = await deleteUser(uuid);
 
         if (deletedUser.id) {
             res.status(200).json(deletedUser);
