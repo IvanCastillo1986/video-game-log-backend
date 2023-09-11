@@ -18,7 +18,8 @@ CREATE TABLE games (
     producer TEXT,
     artist TEXT,
     composer TEXT,
-    genre TEXT
+    genre TEXT,
+    mode TEXT
 );
 
 CREATE TABLE users (
