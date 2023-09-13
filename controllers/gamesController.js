@@ -59,10 +59,10 @@ games.get("/:id", async (req, res) => {
 
 // Create
 games.post("/", checkTitle, checkNumber, async (req, res) => {
+    // console.log('trying to add game')
+    // console.log('req.body', req.body)
     
     try {
-        console.log('trying to add game')
-        console.log('req.body', req.body)
         const newGame = await createGame(req.body);
         res.status(200).json(newGame);
     } catch (err) {
@@ -88,7 +88,6 @@ games.delete("/:id", async (req, res) => {
 
 // Update
 games.put("/:id", async (req, res) => {
-    
     const { id } = req.params;
     const game = req.body;
 

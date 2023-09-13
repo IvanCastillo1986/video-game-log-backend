@@ -42,8 +42,12 @@ const deleteGame = async (id) => {
 
 const updateGame = async (id, game) => {
     const updatedGame = await db.one(
-        "UPDATE games SET title=$1, region=$2, year_released=$3 WHERE id=$4 RETURNING *",
-        [game.title, game.region, game.year_released, id]
+        "UPDATE games SET \
+        title=$1, region=$2, year_released=$3, developer=$4, publisher=$5, director=$6,\
+        producer=$7, artist=$8, composer=$9, genre=$10, mode=$11, platform_id=$12, user_id=$13\
+        WHERE id=$14 RETURNING *",
+        [game.title, game.region, game.year_released, game.developer, game.publisher, game.director, 
+        game.producer, game.artist, game.composer, game.genre, game.mode, game.platform_id, game.user_id, id]
     );
     return updatedGame;
 };

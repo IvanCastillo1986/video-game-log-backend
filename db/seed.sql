@@ -1,4 +1,4 @@
-\c retro_games_dev;
+-- \c retro_games_dev;
 
 -- When games table properties are not being used, will default to N/A
 INSERT INTO games (

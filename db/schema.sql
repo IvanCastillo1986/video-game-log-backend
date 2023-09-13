@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS retro_games_dev;
-CREATE DATABASE retro_games_dev;
+-- DROP DATABASE IF EXISTS retro_games_dev;
+-- CREATE DATABASE retro_games_dev;
 
-\c retro_games_dev;
+-- \c retro_games_dev;
 
 
 CREATE TABLE games (
