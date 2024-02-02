@@ -21,8 +21,8 @@ const createUser = async (user) => {
 };
 
 const deleteUser = async (uuid) => {
-    const deletedGame = await db.one("DELETE FROM users WHERE uuid = $1 RETURNING *", uuid);
-    return deletedGame;
+    const deletedUser = await db.one("DELETE FROM users WHERE uuid = $1 RETURNING *", uuid);
+    return deletedUser;
 };
 
 

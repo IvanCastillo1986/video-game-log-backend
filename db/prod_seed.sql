@@ -1,6 +1,3 @@
-\c retro_games_dev;
-
--- When games table properties are not being used, will default to N/A
 INSERT INTO games (
     platform_id, user_id, title, region, year_released, summary, developer, publisher, director, producer, artist, composer, genre, mode
 ) VALUES 

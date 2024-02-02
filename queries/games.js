@@ -1,11 +1,6 @@
 const db = require("../db/dbConfig.js");
 
 
-{/*
-    db.any(), db.all() returns an array
-    db.one() returns one object
-*/}
-
 
 const getAllGames = async () => {
     const allGames = await db.any("SELECT * FROM games");
@@ -19,15 +14,14 @@ const getGame = async (id) => {
     return game;
 };
 
-// platform_id, user_id, title, region, year_released, developer, publisher, producer, artist, composer, genre, mode
 const createGame = async (game) => {
     const newGame = await db.one(
         "INSERT INTO games (\
-            platform_id, user_id, title, region, year_released, developer,\
+            platform_id, user_id, title, region, year_released, summary, developer,\
             publisher, director, producer, artist, composer, genre, mode\
-        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)\
+        ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)\
         RETURNING *",
-        [game.platform_id, game.user_id, game.title, game.region, game.year_released, game.developer, 
+        [game.platform_id, game.user_id, game.title, game.region, game.year_released, game.summary, game.developer, 
         game.publisher, game.director, game.producer, game.artist, game.composer, game.genre, game.mode]
     );
     return newGame;
@@ -43,10 +37,10 @@ const deleteGame = async (id) => {
 const updateGame = async (id, game) => {
     const updatedGame = await db.one(
         "UPDATE games SET \
-        title=$1, region=$2, year_released=$3, developer=$4, publisher=$5, director=$6,\
-        producer=$7, artist=$8, composer=$9, genre=$10, mode=$11, platform_id=$12, user_id=$13\
-        WHERE id=$14 RETURNING *",
-        [game.title, game.region, game.year_released, game.developer, game.publisher, game.director, 
+        title=$1, region=$2, year_released=$3, summary=$4, developer=$5, publisher=$6, director=$7,\
+        producer=$8, artist=$9, composer=$10, genre=$11, mode=$12, platform_id=$13, user_id=$14\
+        WHERE id=$15 RETURNING *",
+        [game.title, game.region, game.year_released, game.summary, game.developer, game.publisher, game.director, 
         game.producer, game.artist, game.composer, game.genre, game.mode, game.platform_id, game.user_id, id]
     );
     return updatedGame;

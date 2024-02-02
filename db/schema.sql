@@ -1,7 +1,6 @@
--- DROP DATABASE IF EXISTS retro_games_dev;
--- CREATE DATABASE retro_games_dev;
-
--- \c retro_games_dev;
+DROP DATABASE IF EXISTS retro_games_dev;
+CREATE DATABASE retro_games_dev;
+\c retro_games_dev;
 
 
 CREATE TABLE games (
@@ -11,7 +10,7 @@ CREATE TABLE games (
     title TEXT NOT NULL,
     region TEXT,
     year_released TEXT,
-    --description TEXT,
+    summary TEXT,
     developer TEXT,
     publisher TEXT,
     director TEXT,

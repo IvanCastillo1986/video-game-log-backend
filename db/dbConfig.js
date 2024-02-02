@@ -11,7 +11,6 @@ const cn = {
 
 const connectionString = process.env.CONNECTION_STRING
 
-
 const db = pgp(connectionString);
 
 
